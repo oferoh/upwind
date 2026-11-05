@@ -3,7 +3,7 @@
 resources:
   jobs:
     sample_job:
-      name: sample_job
+      name: generate_data
 
       trigger:
         # Run this job every day, exactly one day from the last run; see https://docs.databricks.com/api/workspace/jobs/create#trigger
@@ -22,10 +22,9 @@ resources:
           default: ${var.schema}
 
       tasks:
-        - task_key: refresh_pipeline
-          pipeline_task:
-            pipeline_id: ${resources.pipelines.customers_etl.id}
-
+        - notebook_task:
+            notebook_path: /Workspace/Users/ofer.ohana@databricks.com/upwind_demo/01_generate_raw_csv_data
+          task_key: generate_data
       environments:
         - environment_key: default
           spec:
