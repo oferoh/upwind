@@ -1,0 +1,11 @@
+resources:
+  pipelines:
+    customer_demo:
+      name: customer_demo
+      libraries:
+        - glob:
+            include: ../src/customer_demo/transformations/**
+      serverless: true
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      root_path: ../src/customer_demo

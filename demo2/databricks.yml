@@ -1,0 +1,46 @@
+# Declarative Automation Bundle configuration, more info here: https://docs.databricks.com/en/dev-tools/bundles/settings.html
+bundle:
+  name: "demo2"
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+
+variables:
+  catalog:
+    default: ofer_demo_dev
+  schema:
+    default: bronze
+
+targets:
+  # The 'dev' target, for development purposes. This target is the default.
+  dev:
+    mode: development
+    default: true
+    # Development mode requires the prefix to contain the username (short_name) for uniqueness.
+    presets:
+      name_prefix: "[dev ${workspace.current_user.short_name}] "
+    variables:
+      catalog: ofer_demo_dev
+      schema: bronze
+    workspace:
+      host: https://dbc-2dbd9aec-bd17.cloud.databricks.com
+
+  # The 'prod' target, used for production deployment.
+  prod:
+    mode: production
+    # Adds a visible prefix to prod resource names too (e.g. "[prod] customer_demo").
+    presets:
+      name_prefix: "[prod] "
+    variables:
+      catalog: ofer_demo_prod
+      schema: bronze
+    workspace:
+      host: https://dbc-2dbd9aec-bd17.cloud.databricks.com
+      # We always use /Users/ofer.ohana@databricks.com for all resources to make sure we only have a single copy.
+      root_path: /Users/ofer.ohana@databricks.com/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+
+      service_principal_name: e377503f-86f9-4096-9752-6acfa97f5308
+      #user_name: ofer.ohana@databricks.com

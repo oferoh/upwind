@@ -1,0 +1,17 @@
+resources:
+  jobs:
+    test:
+      name: generate_data
+      queue:
+        enabled: true
+      tasks:
+        - notebook_task:
+            notebook_path: ../generate_data.ipynb
+          task_key: generate_data
+        - depends_on:
+            - task_key: generate_data
+          pipeline_task:
+            # Reference the bundle's own pipeline resource — DABs resolves the ID per target
+            # (dev → [dev ofer_ohana] customer_demo, prod → customer_demo).
+            pipeline_id: ${resources.pipelines.customer_demo.id}
+          task_key: customer
