@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    run_all:
+      name: Run ALL
+      tasks:
+        - task_key: Customer
+          disabled: false
+          email_notifications: {}
+          run_if: ALL_SUCCESS
+          run_job_task:
+            job_id: 521543432240077
+            job_parameters:
+              volume_base: /Volumes/ofer_demo_dev/bronze/salesforce
+          timeout_seconds: 0
+          webhook_notifications: {}
+        - task_key: SalesFource
+          disabled: false
+          email_notifications: {}
+          run_if: ALL_SUCCESS
+          run_job_task:
+            job_id: 26294413470287
+            job_parameters:
+              volume_base: /Volumes/ofer_demo_dev/bronze/salesforce
+          timeout_seconds: 0
+          webhook_notifications: {}
+        - task_key: Run_Models
+          depends_on:
+            - task_key: SalesFource
+            - task_key: Customer
+          disabled: false
+          email_notifications: {}
+          pipeline_task:
+            pipeline_id: 405c5b59-d33f-4f86-8e02-748cc980be27
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+      email_notifications:
+        no_alert_for_skipped_runs: false
+      max_concurrent_runs: 1
+      performance_target: PERFORMANCE_OPTIMIZED
+      queue:
+        enabled: true
+      timeout_seconds: 0
+      webhook_notifications: {}

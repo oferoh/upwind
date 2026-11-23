@@ -1,0 +1,11 @@
+resources:
+  pipelines:
+    generate_models:
+      name: generate models
+      libraries:
+        - glob:
+            include: ../src/generate models/transformations/**
+      serverless: true
+      catalog: ofer_demo_dev
+      schema: gold
+      root_path: ../src/generate models

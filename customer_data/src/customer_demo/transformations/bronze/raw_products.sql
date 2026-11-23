@@ -7,7 +7,7 @@ AS SELECT
   price,
   supplier_id
 FROM STREAM(read_files(
-  '/Volumes/ofer_demo/bronze/raw_csv/raw_products',
+  '/Volumes/ofer_demo_dev/bronze/raw_csv/raw_products',
   format => 'csv',
   header => true,
   inferSchema => true

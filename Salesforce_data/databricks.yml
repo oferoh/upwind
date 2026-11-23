@@ -1,0 +1,41 @@
+# Declarative Automation Bundle configuration, more info here: https://docs.databricks.com/en/dev-tools/bundles/settings.html
+bundle:
+  name: "Salesforce_data"
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+variables:
+  catalog:
+    default: ofer_demo_dev
+  schema:
+    default: bronze
+  gold_schema:
+    default: gold
+  volume_base:
+    description: UC volume folder holding the Salesforce source CSVs (per environment)
+    default: /Volumes/ofer_demo_dev/bronze/salesforce
+
+targets:
+  # The 'dev' target, for development purposes. This target is the default.
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-2dbd9aec-bd17.cloud.databricks.com
+
+  # The 'prod' target, used for production deployment.
+  prod:
+    mode: production
+    variables:
+      catalog: ofer_demo_prod
+      volume_base: /Volumes/ofer_demo_prod/bronze/salesforce
+    workspace:
+      host: https://dbc-2dbd9aec-bd17.cloud.databricks.com
+      # We always use /Users/ofer.ohana@databricks.com for all resources to make sure we only have a single copy.
+      root_path: /Users/ofer.ohana@databricks.com/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      # This runs as ofer.ohana@databricks.com in production. We could also use a service principal here,
+      # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
+      user_name: ofer.ohana@databricks.com

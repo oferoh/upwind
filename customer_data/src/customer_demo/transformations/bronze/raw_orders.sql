@@ -6,7 +6,7 @@ AS SELECT
   order_date,
   status
 FROM STREAM(read_files(
-  '/Volumes/ofer_demo/bronze/raw_csv/raw_orders',
+  '/Volumes/ofer_demo_dev/bronze/raw_csv/raw_orders',
   format => 'csv',
   header => true,
   inferSchema => true

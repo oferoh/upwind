@@ -6,7 +6,7 @@ AS SELECT
   country,
   rating
 FROM STREAM(read_files(
-  '/Volumes/ofer_demo/bronze/raw_csv/raw_suppliers',
+  '/Volumes/ofer_demo_dev/bronze/raw_csv/raw_suppliers',
   format => 'csv',
   header => true,
   inferSchema => true

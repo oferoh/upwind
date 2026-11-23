@@ -1,0 +1,17 @@
+resources:
+  jobs:
+    Generate_Salesforce_Data:
+      name: Generate Salesforce Data
+      queue:
+        enabled: true
+      tasks:
+        - notebook_task:
+            notebook_path: ../Generate Salesforce Data.ipynb
+            base_parameters:
+              volume_base: ${var.volume_base}
+          task_key: Generate_Data
+        - depends_on:
+            - task_key: Generate_Data
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.Salesforce_Ingestion.id}
+          task_key: Salesforce_Ingestion

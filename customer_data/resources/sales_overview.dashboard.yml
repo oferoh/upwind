@@ -1,0 +1,8 @@
+resources:
+  dashboards:
+    sales_overview:
+      display_name: "Sales Overview"
+      warehouse_id: 0a2e84498be0c0d5
+      file_path: ../src/sales_overview.lvdash.json
+      dataset_catalog: ${var.catalog}
+      dataset_schema: ${var.gold_schema}

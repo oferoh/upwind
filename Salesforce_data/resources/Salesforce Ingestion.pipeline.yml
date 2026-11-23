@@ -1,0 +1,13 @@
+resources:
+  pipelines:
+    Salesforce_Ingestion:
+      name: Salesforce Ingestion
+      libraries:
+        - glob:
+            include: ../src/Salesforce Ingestion/transformations/**
+      serverless: true
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      parameters:
+        volume_base: ${var.volume_base}
+      root_path: ../src/Salesforce Ingestion

@@ -7,7 +7,7 @@ AS SELECT
   quantity,
   unit_price
 FROM STREAM(read_files(
-  '/Volumes/ofer_demo/bronze/raw_csv/raw_items',
+  '/Volumes/ofer_demo_dev/bronze/raw_csv/raw_items',
   format => 'csv',
   header => true,
   inferSchema => true

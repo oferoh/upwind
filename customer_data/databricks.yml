@@ -1,6 +1,6 @@
 # Declarative Automation Bundle configuration, more info here: https://docs.databricks.com/en/dev-tools/bundles/settings.html
 bundle:
-  name: "demo2"
+  name: "customer_data"
 
 include:
   - resources/*.yml
@@ -12,6 +12,8 @@ variables:
     default: ofer_demo_dev
   schema:
     default: bronze
+  gold_schema:
+    default: gold
 
 targets:
   # The 'dev' target, for development purposes. This target is the default.
